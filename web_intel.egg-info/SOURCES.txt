@@ -1,0 +1,17 @@
+setup.py
+tests/test_smoke.py
+web_intel/__init__.py
+web_intel/config.py
+web_intel/popup.py
+web_intel/server.py
+web_intel.egg-info/PKG-INFO
+web_intel.egg-info/SOURCES.txt
+web_intel.egg-info/dependency_links.txt
+web_intel.egg-info/requires.txt
+web_intel.egg-info/top_level.txt
+web_intel/core/__init__.py
+web_intel/core/crawl.py
+web_intel/core/extract.py
+web_intel/core/llm.py
+web_intel/core/scrape.py
+web_intel/core/search.py
