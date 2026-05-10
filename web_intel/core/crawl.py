@@ -3,6 +3,7 @@ crawl.py — crawl an entire website, return list of pages.
 """
 from firecrawl import V1FirecrawlApp as FirecrawlApp
 from ..config import FIRECRAWL_URL, FIRECRAWL_API_KEY
+from .output import save_json
 
 
 def crawl(url: str, max_pages: int = 50) -> list[dict]:
@@ -26,4 +27,5 @@ def crawl(url: str, max_pages: int = 50) -> list[dict]:
             pages.append({"url": getattr(page, "url", ""), "markdown": page.markdown or ""})
         elif isinstance(page, dict):
             pages.append({"url": page.get("url", ""), "markdown": page.get("markdown", "")})
+    save_json(url, pages)
     return pages

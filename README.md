@@ -46,9 +46,44 @@ web_intel (this library)
     ├── Firecrawl  ──── self-hosted on your €5 VPS (no limits, no cost per call)
     │                   handles JS rendering, proxies, rate limits, retries
     │
+    ├── SearXNG  ──── self-hosted search engine, routes through residential proxies
+    │                 bypasses Google/Bing bot detection on datacenter IPs
+    │
     └── LLM of your choice ──── OpenAI / NVIDIA NIM / Anthropic
                                  configured per-project via env vars
 ```
+
+---
+
+## Auto-saves everything
+
+Every call automatically saves output to an `outputs/` folder — no extra code needed.
+
+```
+outputs/
+├── 2026-05-10_06-32-11_techcrunch-com-article.md     # scrape
+├── 2026-05-10_06-33-44_openai-funding-round.json      # search
+├── 2026-05-10_06-35-02_docs-example-com.json          # crawl
+└── 2026-05-10_06-36-19_company-com.json               # extract
+```
+
+Useful for debugging, piping into other tools, or just keeping a log of everything scraped.
+
+---
+
+## Auth-walled sites (LinkedIn etc.)
+
+Add cookies to `cookies.json` at the root of the repo — they get auto-injected per domain:
+
+```json
+{
+  "linkedin.com": "li_at=your_cookie_here"
+}
+```
+
+No code changes. Any scrape of a matching domain gets the cookie header automatically.
+
+To get your `li_at` cookie: Chrome → DevTools → Application → Cookies → `linkedin.com` → copy the `li_at` value.
 
 ---
 
@@ -71,7 +106,7 @@ python -m web_intel.popup
 
 ## Setup
 
-### 1. Self-host Firecrawl (one time, €5/month forever)
+### 1. Self-host Firecrawl + SearXNG (one time, €5/month forever)
 
 Spin up a VPS (Hetzner CX23 recommended — 4GB RAM, €5/month):
 
@@ -90,6 +125,7 @@ PLAYWRIGHT_MICROSERVICE_URL=http://playwright-service:3000/scrape
 USE_DB_AUTHENTICATION=false
 BULL_AUTH_KEY=your-secret-key
 LOGGING_LEVEL=INFO
+SEARXNG_ENDPOINT=http://searxng:8080
 EOF
 
 docker compose up -d
@@ -97,6 +133,30 @@ docker update --restart=always $(docker ps -q)
 ```
 
 Firecrawl is now live at `http://your-server-ip:3002`. Unlimited. Forever.
+
+**Fix SearXNG search on datacenter IPs (required):**
+
+Datacenter IPs get blocked by Google/Bing. Route SearXNG through residential proxies:
+
+1. Get free proxies from [webshare.io](https://webshare.io) (10 free, no credit card)
+2. Go to Webshare → Free → Proxy Settings → IP Authorizations → add your server IP
+3. Update SearXNG config inside the container:
+
+```bash
+docker exec firecrawl-searxng-1 python3 -c "
+with open('/etc/searxng/settings.yml', 'r') as f:
+    content = f.read()
+# enable JSON format
+content = content.replace('  formats:\n    - html\n', '  formats:\n    - html\n    - json\n', 1)
+# add proxies (get IPs from Webshare Free → Proxy List)
+content = content.replace('  #  proxies:', '  proxies:')
+content = content.replace('  #    all://:', '    all://:')
+content = content.replace('  #      - http://proxy1:8080', '      - http://PROXY_IP:PORT')
+with open('/etc/searxng/settings.yml', 'w') as f:
+    f.write(content)
+"
+docker restart firecrawl-searxng-1
+```
 
 ### 2. Install web-intel
 
@@ -198,11 +258,14 @@ web_intel/
 │   ├── popup.py           # live stats widget controller
 │   ├── _popup_window.py   # popup UI process
 │   └── core/
-│       ├── scrape.py      # single URL fetch
+│       ├── scrape.py      # single URL fetch + auto cookie inject
 │       ├── crawl.py       # multi-page crawl
-│       ├── search.py      # web search
+│       ├── search.py      # web search via SearXNG
 │       ├── extract.py     # structured extraction
+│       ├── output.py      # auto-save all results to outputs/
 │       └── llm.py         # provider-agnostic LLM client
+├── cookies.json           # domain → cookie string (auto-injected per domain)
+├── outputs/               # auto-saved results (gitignored)
 ├── tests/test_smoke.py
 ├── open_popup.py          # double-click to open stats popup
 ├── setup.py

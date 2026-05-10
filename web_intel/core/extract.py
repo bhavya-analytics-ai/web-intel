@@ -7,6 +7,7 @@ from firecrawl import V1FirecrawlApp as FirecrawlApp
 from ..config import FIRECRAWL_URL, FIRECRAWL_API_KEY
 from .llm import call_llm
 from .scrape import scrape
+from .output import save_json
 
 
 def extract(url: str, schema: dict, prompt: str = None) -> dict:
@@ -67,7 +68,9 @@ Return JSON:"""
     try:
         if "```" in raw:
             raw = raw.split("```")[1].replace("json", "").strip()
-        return json.loads(raw)
+        result = json.loads(raw)
+        save_json(url, result)
+        return result
     except Exception as e:
         from ..popup import log_error
         log_error(url, "JSON parse failed", f"Raw response: {raw[:200]}")

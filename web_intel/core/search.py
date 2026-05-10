@@ -3,6 +3,7 @@ search.py — web search + optionally fetch full content of results.
 """
 from firecrawl import V1FirecrawlApp as FirecrawlApp
 from ..config import FIRECRAWL_URL, FIRECRAWL_API_KEY
+from .output import save_json
 
 
 def search(query: str, limit: int = 5, with_content: bool = False) -> list[dict]:
@@ -41,4 +42,5 @@ def search(query: str, limit: int = 5, with_content: bool = False) -> list[dict]
                 "title": getattr(item, "title", ""),
                 "content": getattr(item, "markdown", getattr(item, "description", ""))
             })
+    save_json(query, results)
     return results
