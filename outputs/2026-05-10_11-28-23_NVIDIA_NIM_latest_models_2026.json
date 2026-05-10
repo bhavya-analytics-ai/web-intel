@@ -1,0 +1,27 @@
+[
+  {
+    "url": "https://build.nvidia.com/models",
+    "title": "Try NVIDIA NIM APIs",
+    "content": "Models Deploy and scale models on your GPU infrastructure of choice with NVIDIA NIM inference microservices Optimized by NVIDIA Launch from Hugging Face Beta"
+  },
+  {
+    "url": "https://aihola.com/article/nvidia-nim-free-api-models",
+    "title": "NVIDIA NIM Free API: 100+ AI Models, Zero Cost, Real Limits",
+    "content": "NVIDIA's NIM catalog offers 100+ AI models via free API, from DeepSeek to Nemotron speech. Here's what developers actually get and what NVIDIA gets in return."
+  },
+  {
+    "url": "https://www.buildfastwithai.com/blogs/nvidia-ai-models-2026-guide",
+    "title": "NVIDIA AI Models 2026: Full Guide, Rankings & Comparisons",
+    "content": "NVIDIA's Transformation: From GPU Maker to AI Ecosystem NVIDIA is no longer a chip company. It is the world's first full-stack AI infrastructure provider, spanning silicon to simulation to foundation models. Jensen Huang said it plainly at CES 2026: 'Computing has been fundamentally reshaped as a result of accelerated computing, as a result of artificial intelligence.'"
+  },
+  {
+    "url": "https://siliconangle.com/2026/04/28/nvidia-introduces-nemotron-3-nano-omni-vision-speech-powerful-agentic-ai-use/",
+    "title": "Nvidia introduces Nemotron 3 Nano Omni with vision and speech for ...",
+    "content": "The new model is now available on Hugging Face, OpenRouter and build.nvidia.com as an Nvidia NIM microservice."
+  },
+  {
+    "url": "https://lilting.ch/en/articles/nvidia-nim-free-inference-100-models-openai-compatible",
+    "title": "NVIDIA NIM opens free hosted inference across 100+ models on an OpenAI ...",
+    "content": "NVIDIA's build.nvidia.com serves a free inference API that covers 100+ models including MiniMax M2.7, GLM-5, Kimi K2.5, DeepSeek, GPT-OSS, and Sarvam-M. Because ..."
+  }
+]

@@ -11,8 +11,8 @@ load_dotenv()
 FIRECRAWL_URL = os.getenv("FIRECRAWL_URL", "https://api.firecrawl.dev")
 FIRECRAWL_API_KEY = os.getenv("FIRECRAWL_API_KEY", "")
 
-# LLM provider routing
-PROVIDER = os.getenv("WEB_INTEL_PROVIDER", "openai")  # openai | nvidia | anthropic
+# LLM provider routing (used by extract.py fallback)
+PROVIDER = os.getenv("WEB_INTEL_PROVIDER", "openai")  # openai | nvidia
 LLM_API_KEY = os.getenv("WEB_INTEL_API_KEY", "")
 LLM_MODEL = os.getenv("WEB_INTEL_MODEL", "gpt-4o-mini")
 LLM_BASE_URL = os.getenv("WEB_INTEL_BASE_URL", None)  # needed for NIM

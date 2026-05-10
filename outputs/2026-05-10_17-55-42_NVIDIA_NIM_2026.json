@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://developer.nvidia.com/nim",
+    "title": "NIM for Developers | NVIDIA Developer",
+    "content": "NVIDIA NIM for Developers NVIDIA NIM™ provides containers to self-host GPU-accelerated inferencing microservices for pretrained and customized AI models across clouds, data centers, and RTX™ AI PCs and workstations. NIM microservices expose industry-standard APIs for simple integration into AI applications, development frameworks, and workflows and optimize response latency and throughput ..."
+  },
+  {
+    "url": "https://costbench.com/software/llm-api-providers/nvidia-nim/free-plan/",
+    "title": "Is NVIDIA NIM Free? Developer Credits & Free Tier Limits (2026)",
+    "content": "Yes, NVIDIA NIM offers a forever free plan as of May 2026. The free tier includes 3 features with limits on usage. Pricing verified from 1 sources by CostBench."
+  },
+  {
+    "url": "https://docs.nvidia.com/nim/index.html",
+    "title": "NVIDIA NIM - NVIDIA Docs",
+    "content": "Part of NVIDIA AI Enterprise, NVIDIA NIM microservices are a set of easy-to-use microservices for accelerating the deployment of foundation models on any cloud or data center and helps keep your data secure. NIM microservices have production-grade runtimes including on-going security updates."
+  }
+]
